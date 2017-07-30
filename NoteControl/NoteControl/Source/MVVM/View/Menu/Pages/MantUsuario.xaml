@@ -74,7 +74,6 @@
                 <DataGridTextColumn Header="Estado" Binding="{Binding Estado,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Perfil" Binding="{Binding Perfil,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
-
         </DataGrid>
        
     </Grid>

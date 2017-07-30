@@ -6,7 +6,7 @@
       xmlns:vm="clr-namespace:NoteControl.Source.MVVM.ViewModel"
       xmlns:local="clr-namespace:NoteControl"
       mc:Ignorable="d"
-      Title="ConProfXCurso" Height="700.000" Width="1200.000">
+      Title="ConProfXCurso" Height="650.000" Width="1200.000">
 
     <Page.Resources>
         <ResourceDictionary>

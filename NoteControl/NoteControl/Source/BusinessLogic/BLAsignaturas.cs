@@ -26,6 +26,17 @@ namespace NoteControl.Source.BusinessLogic
             }
 
         }
+        public List<Asignatura> ListarAsignaturasPorProfesor(int rut) {
+
+            try
+            {
+               return _da.ListarAsignaturasPorProfesor(rut);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         //metodo para listar todos las asignaturas
         public List<Asignatura> ListarAsignaturas()
         {

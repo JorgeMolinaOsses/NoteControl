@@ -9,7 +9,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" 
-        Height="700.000" Width="1200.000" WindowStyle="SingleBorderWindow" Background="Transparent">
+        WindowStyle="None" 
+        Height="700.000" Width="1200.000"  Background="Transparent">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,13 +21,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="700"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu  x:Name="_Menu"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"  ItemsSource="{Binding Menus}" Margin="0,0,169,0">
 
         </Menu>
 
-        <Frame x:Name="Main" Content="{Binding Path=FrameContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="0,10,0,0" NavigationUIVisibility="Hidden"  Grid.Row="1" />
+        <Frame x:Name="Main" Content="{Binding Path=FrameContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden"  Grid.Row="1" Margin="0,0,0,33" />
         <Rectangle HorizontalAlignment="Left"  Height="50" Margin="1011,0,0,0" VerticalAlignment="Top" Width="181">
             <Rectangle.Fill>
                 <SolidColorBrush Color="#fafafa" />

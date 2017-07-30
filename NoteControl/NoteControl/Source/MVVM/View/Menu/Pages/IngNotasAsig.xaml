@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NoteControl"
       mc:Ignorable="d"
-      Title="RegXMateria" Height="700.000" Width="1200.000">
+      Title="RegXMateria" Height="650.000" Width="1200.000">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -20,12 +20,16 @@
                 <Setter Property="Margin" Value="0 8 0 8" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
-            <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MaterialDesignPasswordBox}">
-                <Setter Property="Margin" Value="0 8 0 8" />
-            </Style>
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Margin" Value="0 8 0 8" />
+                <Setter Property="FontSize" Value="20" />
+                <Style.Triggers>
+                    <Trigger Property="IsDropDownOpen" Value="True">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type Viewbox}">
                 <Setter Property="Width" Value="18" />
@@ -33,32 +37,33 @@
                 <Setter Property="Margin" Value="0 0 8 0" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource MaterialDesignSlider}">
-                <Setter Property="Margin" Value="0 8 0 8" />
-            </Style>
-
         </ResourceDictionary>
     </Page.Resources>
-
     <Grid>
-        <ComboBox x:Name="Est" HorizontalAlignment="Left" Margin="139,37,0,0" VerticalAlignment="Top" Width="315" Height="40"/>
-        <TextBox x:Name="txtProfe" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="139,82,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" FontSize="20" />
-        <Label x:Name="NombP" Content="Nombre" Foreground="White"  HorizontalAlignment="Left" Margin="64,160,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="TxNomP" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="139,132,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="229" FontSize="20" />
-        <Label x:Name="RutP" Content="R U T" Foreground="White"  HorizontalAlignment="Left" Margin="64,110,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="txtProf" Content="Profesor" Foreground="White"  HorizontalAlignment="Left" Margin="57,51,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="txtCurso" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="718,64,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" FontSize="20" />
-        <Label x:Name="txtMat" Content="Asignatura" Foreground="White"  HorizontalAlignment="Left" Margin="623,142,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="TxNomP_Copy" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="718,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" FontSize="20" />
-        <Label x:Name="Curso" Content="Curso" Foreground="White"  HorizontalAlignment="Left" Margin="643,92,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="txtProf_Copy" Content="Profesor" Foreground="White"  HorizontalAlignment="Left" Margin="636,33,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="txtNProf" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="718,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" FontSize="20" />
-        <Label x:Name="txtCAsig" Content="Codigo Asignatura" Foreground="White"  HorizontalAlignment="Left" Margin="623,192,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="txtAsig" Foreground="White" HorizontalAlignment="Left" Height="45" Margin="753,173,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="185" FontSize="20" />
-        <DataGrid x:Name="dgRegXMat_Copy" HorizontalAlignment="Left" Margin="610,246,0,0" VerticalAlignment="Top" Height="275" Width="545"/>
-        <Button x:Name="GuardarN" Content="Guardar" HorizontalAlignment="Left" Margin="998,64,0,0" VerticalAlignment="Top" Width="157" Height="45"/>
-        <Button x:Name="UpdateN" Content="Modificar" HorizontalAlignment="Left" Margin="994,132,0,0" VerticalAlignment="Top" Width="161" Height="45" RenderTransformOrigin="-0.613,1.803"/>
-
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="CBMain" ItemsSource="{Binding ComboBoxProfesores,Mode=TwoWay}"
+        SelectedItem="{Binding SelectedComboBoxProfesores,Mode=TwoWay}" 
+                  Grid.Row="1" Grid.Column="1"></ComboBox>
+        <Button Command="{Binding ButtonBuscarAsig, Mode =TwoWay,IsAsync=True}" Grid.Row="2" Grid.Column="1" Content="Buscar Asignaturas"></Button>
+        <DataGrid Name="DataGrid" Grid.Row="5"  Grid.Column="0"  Grid.ColumnSpan="3" ItemsSource="{Binding DataGridAsigCursoProfe,Mode=TwoWay,IsAsync=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="50" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Codigo de Curso" Binding="{Binding CodeCurso}" />
+                <DataGridTextColumn Header="Nombre de Curso" Binding="{Binding NombreCurso}"/>
+                <DataGridTextColumn Header="Codigo Asignatura" Binding="{Binding CodeAsignatura}"/>
+                <DataGridTextColumn Header="Nombre de Asignatura" Binding="{Binding NombreAsignatura}"/>
+                <DataGridHyperlinkColumn Header="Seleccionar" Binding="{Binding Seleccionar}"></DataGridHyperlinkColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

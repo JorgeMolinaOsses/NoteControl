@@ -25,7 +25,25 @@ namespace NoteControl.Source.DataAccess.Source
             List<Asignatura> lista = _db.Asignaturas.ToList();
             return lista;
         }
+        public List<Asignatura> ListarAsignaturasPorProfesor(int rut)
+        {
+            List<Asignatura> list = new List<Asignatura>();
+            var li = (from profe in _db.Profesores
+                      join cpa in _db.CursoProfeAsignaturas
+                         on profe.Rut equals cpa.Rut
+                      join cur in _db.Cursos
+ on cpa.CursoCode equals cur.CursoCode
+                      join asig in _db.Asignaturas
+ on cpa.AsignaturaCode equals asig.AsignaturaCode
+                      where profe.Rut == rut
+                      select asig).ToList();
        
+            foreach (Asignatura a in li)
+            {
+              list.Add(a);
+            }
+            return list;
+        }
 
         public void Dispose()
         {
